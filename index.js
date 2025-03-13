@@ -4,7 +4,6 @@ const axios = require("axios");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const GITHUB_USERNAME = process.env.GITHUB_USERNAME;
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 const GITHUB_API_BASE = "https://api.github.com";
@@ -21,8 +20,8 @@ app.use(express.json());
  */
 app.get("/github", async (req, res) => {
   try {
-    const userResponse = await axios.get(`${GITHUB_API_BASE}/users/${GITHUB_USERNAME}`, { headers });
-    const reposResponse = await axios.get(`${GITHUB_API_BASE}/users/${GITHUB_USERNAME}/repos`, { headers });
+    const userResponse = await axios.get(`${GITHUB_API_BASE}/users/arsdmnzr`, { headers });
+    const reposResponse = await axios.get(`${GITHUB_API_BASE}/users/arsdmnzr/repos`, { headers });
 
     const userData = {
       username: userResponse.data.login,
@@ -48,7 +47,7 @@ app.get("/github", async (req, res) => {
 app.get("/github/:repo", async (req, res) => {
   try {
     const repoName = req.params.repo;
-    const repoResponse = await axios.get(`${GITHUB_API_BASE}/repos/${GITHUB_USERNAME}/${repoName}`, { headers });
+    const repoResponse = await axios.get(`${GITHUB_API_BASE}/repos/arsdmnzr/${repoName}`, { headers });
 
     const repoData = {
       name: repoResponse.data.name,
@@ -79,7 +78,7 @@ app.post("/github/:repo/issues", async (req, res) => {
     }
 
     const issueResponse = await axios.post(
-      `${GITHUB_API_BASE}/repos/${GITHUB_USERNAME}/${repoName}/issues`,
+      `${GITHUB_API_BASE}/repos/arsdmnzr/${repoName}/issues`,
       { title, body },
       { headers }
     );
